@@ -1,4 +1,4 @@
-package ru.stepup.spring.coins.core.dtos;
+package ru.astra.products.dtos;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

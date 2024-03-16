@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.stepup.spring.coins.core.dtos.ItemDto;
 import ru.stepup.spring.coins.core.dtos.PageDto;
 import ru.stepup.spring.coins.core.exceptions.ResourceNotFoundException;
-import ru.stepup.spring.coins.core.services.ItemsService;
+import ru.stepup.spring.coins.core.services.impl.ItemsService;
 
 import java.util.stream.Collectors;
 

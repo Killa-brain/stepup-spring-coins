@@ -1,4 +1,4 @@
-package ru.stepup.spring.coins.core.services;
+package ru.stepup.spring.coins.core.services.impl;
 
 import org.springframework.stereotype.Service;
 import ru.stepup.spring.coins.core.entities.Item;
