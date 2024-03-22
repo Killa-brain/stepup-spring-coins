@@ -6,19 +6,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.stepup.spring.coins.core.api.ExecuteCoinsRequest;
 import ru.stepup.spring.coins.core.api.ExecuteCoinsResponse;
+import ru.stepup.spring.coins.core.services.CoinsService;
 import ru.stepup.spring.coins.core.services.impl.CoinsServiceImpl;
 
 @RestController
 @RequestMapping("/api/v1/coins")
 public class CoinsController {
-    private final CoinsServiceImpl coinsServiceImpl;
+    private final CoinsService coinsService;
 
-    public CoinsController(CoinsServiceImpl coinsServiceImpl) {
-        this.coinsServiceImpl = coinsServiceImpl;
+    public CoinsController(CoinsServiceImpl coinsService) {
+        this.coinsService = coinsService;
     }
 
     @PostMapping("/execute")
     public ExecuteCoinsResponse execute(@RequestBody ExecuteCoinsRequest request) {
-        return coinsServiceImpl.execute(request);
+        return coinsService.execute(request);
     }
 }

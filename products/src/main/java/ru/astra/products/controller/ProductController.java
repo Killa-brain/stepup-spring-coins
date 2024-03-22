@@ -1,5 +1,6 @@
 package ru.astra.products.controller;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 import ru.astra.products.domain.ProductRequest;
 import ru.astra.products.domain.ProductResponse;
@@ -24,14 +25,16 @@ public class ProductController {
         return new PageDto<>(Mapper.mapListResponse(productService.findAll()));
     }
 
-    @GetMapping("/user/{userId}")
-    public PageDto<ProductResponse> getListByUser(@PathVariable("userId") Long userId) {
+    @GetMapping("/user")
+    public PageDto<ProductResponse> getListByUser(@RequestHeader(name = "USERID") String userId) {
         return new PageDto<>(Mapper.mapListResponse(productService.findAllByUserId(userId)));
     }
 
     @GetMapping("/{id}")
-    public ProductResponse getProductById(@PathVariable("id") Long id) {
-        return Mapper.mapToResponse(productService.findById(id));
+    public ProductResponse getProductById(@PathVariable("id") Long id, @RequestHeader(name = "USERID") String userId) {
+        var product = productService.findByIdAndUserId(id, userId)
+                .orElseThrow(() -> new IllegalArgumentException("Cannot found product by id: " + id));
+        return Mapper.mapToResponse(product);
     }
 
     @PostMapping

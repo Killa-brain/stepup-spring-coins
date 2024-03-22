@@ -43,19 +43,15 @@ public class CoinsServiceImpl implements CoinsService {
                     new IntegrationErrorDto("404", "Products not found"));
         }
 
-        Optional<ProductResponse> matchingProduct = productPage.getContent().stream()
+        ProductResponse product = productPage.getContent().stream()
                 .filter(p -> Objects.equals(request.productType(), p.getProductType()))
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new BadRequestException("Product with type: " + request.productType() + " not found", "400"));
 
-        if (matchingProduct.isPresent()) {
-            ProductResponse product = matchingProduct.get();
-            if (request.cost().compareTo(product.getBalance()) > 0) {
-                throw new BadRequestException("Insufficient funds for the product", "400");
-            }
-
-            log.info("The product is available with sufficient funds");
-        } else {
-            throw new BadRequestException("Product with type: " + request.productType() + " not found", "400");
+        if (request.cost().compareTo(product.getBalance()) > 0) {
+            throw new BadRequestException("Insufficient funds for the product", "400");
         }
+
+        log.info("The product is available with sufficient funds");
     }
 }

@@ -1,44 +1,42 @@
 package ru.astra.products.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.astra.products.entity.Product;
 import ru.astra.products.domain.ProductRequest;
 import ru.astra.products.domain.ProductType;
-import ru.astra.products.repository.ProductDao;
+import ru.astra.products.repository.ProductRepository;
 import ru.astra.products.utils.Mapper;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    private ProductDao productDao;
+    private final ProductRepository productRepository;
 
-    public ProductServiceImpl(ProductDao productDao) {
-        this.productDao = productDao;
+    @Override
+    public Optional<Product> findById(Long id) {
+        return productRepository.findById(id);
     }
 
     @Override
-    public Product findById(Long id) {
-        return productDao.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Cannot found product by id: " + id));
-    }
-
-    @Override
-    public List<Product> findAllByUserId(Long userId) {
-        return productDao.findAllByUserId(userId);
+    public List<Product> findAllByUserId(String userId) {
+        return productRepository.findAllByUserId(Long.valueOf(userId));
     }
 
     @Override
     public List<Product> findAll() {
-        return productDao.findAll();
+        return productRepository.findAll();
     }
 
     @Override
     public Product save(ProductRequest request) {
         validate(request);
-        return productDao.save(Mapper.requestToEntity(request));
+        return productRepository.save(Mapper.requestToEntity(request));
     }
 
     @Override
@@ -49,13 +47,17 @@ public class ProductServiceImpl implements ProductService {
                 request.getAccountNumber(),
                 request.getBalance(),
                 ProductType.getByValue(request.getProductType()));
-        var result = productDao.update(product);
-        return result ? product : null;
+        return productRepository.save(product);
     }
 
     @Override
-    public boolean removeById(Long id) {
-        return productDao.removeById(id);
+    public void removeById(Long id) {
+        productRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Product> findByIdAndUserId(Long id, String userId) {
+        return productRepository.findProductByIdAndUserId(id, Long.valueOf(userId));
     }
 
     private void validate(ProductRequest request) {

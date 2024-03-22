@@ -22,8 +22,9 @@ public class ProductIntegrationRestClient implements ProductIntegration {
     public PageDto<ProductResponse> getProducts(ProductRequest productRequest) {
         try {
             var response = restClient.get()
-                    .uri("/api/v1/product/user/" + productRequest.getUserId())
+                    .uri("/api/v1/product/user")
                     .header("Accept", "application/json")
+                    .header("USERID", productRequest.getUserId())
                     .retrieve()
                     .body(new ParameterizedTypeReference<PageDto<ProductResponse>>() {
                     });

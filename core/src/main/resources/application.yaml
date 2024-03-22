@@ -37,7 +37,7 @@ integrations:
       url: "http://localhost:8031/executor"
       connect-timeout: 1s
       read-timeout: 30s
-    product:
-      url: "http://localhost:8083"
-      connect-timeout: 1s
-      read-timeout: 30s
+  product:
+    url: "http://localhost:8083"
+    connect-timeout: 1s
+    read-timeout: 30s

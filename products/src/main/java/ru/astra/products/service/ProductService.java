@@ -4,11 +4,12 @@ import ru.astra.products.entity.Product;
 import ru.astra.products.domain.ProductRequest;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
 
-    Product findById(Long id);
-    List<Product> findAllByUserId(Long userId);
+    Optional<Product> findById(Long id);
+    List<Product> findAllByUserId(String userId);
 
     List<Product> findAll();
 
@@ -16,5 +17,7 @@ public interface ProductService {
 
     Product update(Long id, ProductRequest product);
 
-    boolean removeById(Long id);
+    void removeById(Long id);
+
+    Optional<Product> findByIdAndUserId(Long id, String userId);
 }
