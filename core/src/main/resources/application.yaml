@@ -3,21 +3,18 @@ server:
 
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:mydatabase;MODE=PostgreSQL
-    username: sa
-    password:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/inno
+    hikari:
+      username: postgres
+      password: postgres
+      schema: items
   jpa:
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: false
   task:
     scheduling:
       pool:
@@ -40,3 +37,7 @@ integrations:
       url: "http://localhost:8031/executor"
       connect-timeout: 1s
       read-timeout: 30s
+  product:
+    url: "http://localhost:8083"
+    connect-timeout: 1s
+    read-timeout: 30s

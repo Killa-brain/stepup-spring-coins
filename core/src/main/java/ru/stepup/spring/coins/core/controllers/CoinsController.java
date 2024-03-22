@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.stepup.spring.coins.core.api.ExecuteCoinsRequest;
 import ru.stepup.spring.coins.core.api.ExecuteCoinsResponse;
 import ru.stepup.spring.coins.core.services.CoinsService;
+import ru.stepup.spring.coins.core.services.impl.CoinsServiceImpl;
 
 @RestController
 @RequestMapping("/api/v1/coins")
 public class CoinsController {
     private final CoinsService coinsService;
 
-    public CoinsController(CoinsService coinsService) {
+    public CoinsController(CoinsServiceImpl coinsService) {
         this.coinsService = coinsService;
     }
 

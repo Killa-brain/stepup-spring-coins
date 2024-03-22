@@ -1,7 +1,10 @@
 package ru.stepup.spring.coins.core.configurations.properties;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 import java.time.Duration;
 
+@ConfigurationProperties(prefix = "integrations.product")
 public class RestTemplateProperties {
     private String url;
     private Duration connectTimeout;

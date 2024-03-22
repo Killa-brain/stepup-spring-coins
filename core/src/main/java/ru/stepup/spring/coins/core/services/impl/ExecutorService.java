@@ -1,4 +1,4 @@
-package ru.stepup.spring.coins.core.services;
+package ru.stepup.spring.coins.core.services.impl;
 
 import org.springframework.stereotype.Service;
 import ru.stepup.spring.coins.core.api.ExecuteCoinsRequest;
@@ -17,7 +17,7 @@ public class ExecutorService {
     public ExecuteCoinsResponse execute(ExecuteCoinsRequest request) {
         CoinsExecuteDtoRs response = executorIntegration.execute(request);
         return new ExecuteCoinsResponse(
-                response.id(),
+                response.coinsTransactionId(),
                 response.status()
         );
     }

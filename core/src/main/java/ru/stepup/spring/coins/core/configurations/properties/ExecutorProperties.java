@@ -7,12 +7,11 @@ import org.springframework.boot.context.properties.bind.ConstructorBinding;
 public class ExecutorProperties {
     private RestTemplateProperties client;
 
-    public RestTemplateProperties getClient() {
-        return client;
-    }
-
-    @ConstructorBinding
     public ExecutorProperties(RestTemplateProperties client) {
         this.client = client;
+    }
+
+    public RestTemplateProperties getClient() {
+        return client;
     }
 }
